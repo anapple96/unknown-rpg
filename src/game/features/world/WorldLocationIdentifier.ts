@@ -14,4 +14,8 @@ export abstract class WorldLocationIdentifier {
     public toString(): string {
         return `${WorldLocationType[this.type]}: ${this.id};`
     }
+
+    public equals(other: WorldLocationIdentifier): boolean {
+        return this.type === other.type && this.id == other.id;
+    }
 }

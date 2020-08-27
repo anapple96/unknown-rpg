@@ -10,7 +10,7 @@ export class World extends Feature {
     name: string = "World";
     saveKey: string = "world";
 
-    playerPosition: WorldLocationIdentifier;
+    playerLocation: WorldLocationIdentifier;
 
     roads: Road[];
     towns: Town[];
@@ -20,10 +20,40 @@ export class World extends Feature {
         this.roads = roads;
         this.towns = towns;
 
-        this.playerPosition = new TownLocationIdentifier(TownId.SmallTown);
+        this.playerLocation = new TownLocationIdentifier(TownId.SmallTown);
+    }
+
+    /**
+     * Try to move from the player location to the target, returns true if possible
+     * @param target to move to
+     */
+    moveToLocation(target: WorldLocationIdentifier): boolean {
+        if (this.playerLocation.equals(target)) {
+            console.log(`You're already at ${target}`);
+            return false;
+        }
+        if (!this.areConnected(this.playerLocation, target)) {
+            console.log(`There is no road from ${this.playerLocation} to ${target}`);
+            return false;
+        }
+
+        this.playerLocation = target;
+        return true;
+    }
+
+    areConnected(from: WorldLocationIdentifier, to: WorldLocationIdentifier): boolean {
+        // TODO(@Isha) improve efficiency, this is why you went to uni.
+        for (const road of this.roads) {
+            // Bidirectional roads
+            if (road.from.equals(from) && road.to.equals(to) || road.from.equals(to) && road.to.equals(from)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     load(data: WorldSaveData): void {
+        // Empty
     }
 
     parseSaveData(json: Record<string, unknown>): WorldSaveData {
