@@ -10,4 +10,8 @@ export abstract class WorldLocationIdentifier {
         this.type = type;
         this.id = id;
     }
+
+    public toString(): string {
+        return `${WorldLocationType[this.type]}: ${this.id};`
+    }
 }
