@@ -14,10 +14,13 @@ export class WorldBuilder {
     static createWorld(): World {
         const roads = [
             this.createRoad(RoadId.OldTownRoad, "Old Town Road", new TownLocationIdentifier(TownId.SmallTown), new TownLocationIdentifier(TownId.ToonTown), 100),
+            this.createRoad(RoadId.ToonToAwesome, "Toon to Awesome", new TownLocationIdentifier(TownId.ToonTown), new TownLocationIdentifier(TownId.AwesomeTown), 200),
         ]
 
         const towns = [
             this.createTown(TownId.ToonTown, "Toon Town", TownTier.Town),
+            this.createTown(TownId.SmallTown, "Small Town", TownTier.Town),
+            this.createTown(TownId.AwesomeTown, "Awesome Town", TownTier.Town),
         ]
 
         return new World(roads, towns);
