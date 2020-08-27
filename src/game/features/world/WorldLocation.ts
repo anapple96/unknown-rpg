@@ -24,7 +24,7 @@ export abstract class WorldLocation {
     }
 
     getLockedReason(): string[] {
-        let list = [];
+        const list = [];
         for (const requirement of this.requirements) {
             if (!requirement.isCompleted()) {
                 list.push(requirement.lockedReason());
