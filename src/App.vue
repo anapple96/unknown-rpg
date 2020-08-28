@@ -6,6 +6,7 @@
     <settings></settings>
     <statistics></statistics>
     <achievements></achievements>
+    <world></world>
   </div>
 </template>
 
@@ -15,10 +16,12 @@ import Example from "@/game/features/example/Example.vue";
 import Settings from "@/engine/features/settings/Settings.vue";
 import Statistics from "@/engine/features/statistics/Statistics.vue";
 import Achievements from "@/engine/features/achievements/Achievements.vue";
+import World from "@/game/features/world/World.vue";
 
 export default {
 
   components: {
+    'world': World,
     'statistics': Statistics,
     'settings': Settings,
     'example': Example,
