@@ -34,6 +34,21 @@ export class Player extends Feature {
         }
     }
 
+    cancelAction(action: PlayerAction) {
+        const index = this.actionQueue.indexOf(action);
+        if (index === -1) {
+            console.error(`Could not cancel action ${action.description} as it's not in the queue`);
+        }
+        this.cancelActionsFromIndex(index);
+    }
+
+    cancelActionsFromIndex(index: number) {
+        for (let i = index; i < this.actionQueue.length; i++) {
+            this.actionQueue[i].cancel();
+        }
+        this.actionQueue = this.actionQueue.slice(0, index);
+    }
+
     addAction(action: PlayerAction) {
         if (this.actionQueue.length >= this.maxActions) {
             console.log(`You already have ${this.maxActions} actions scheduled.`);

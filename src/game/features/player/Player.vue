@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>I'm a player</p>
-    <player-action v-for="(action, index) in queue" :action="action"
+    <player-action v-for="(action, index) in queue" :index="index" :action="action"
                    :key="index + '-' + action.description"></player-action>
     <button @click="addDummyAction"> Perform dummy action in Toon Town</button>
   </div>
