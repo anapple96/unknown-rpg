@@ -7,6 +7,7 @@
     <achievements></achievements>
     <world></world>
     <player></player>
+    <player-inventory></player-inventory>
 
   </div>
 </template>
@@ -18,6 +19,7 @@ import Settings from "@/engine/features/settings/Settings.vue";
 import Statistics from "@/engine/features/statistics/Statistics.vue";
 import Achievements from "@/engine/features/achievements/Achievements.vue";
 import World from "@/game/features/world/World.vue";
+import PlayerInventory from "@/game/features/inventory/PlayerInventory.vue";
 
 export default {
 
@@ -26,6 +28,7 @@ export default {
     'statistics': Statistics,
     'settings': Settings,
     'player': Player,
+    'player-inventory': PlayerInventory,
     'wallet': Wallet,
     'achievements': Achievements,
   },

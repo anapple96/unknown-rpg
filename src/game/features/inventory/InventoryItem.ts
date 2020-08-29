@@ -11,6 +11,18 @@ export class InventoryItem {
         this.maxStack = maxStack;
     }
 
+    isEmpty(): boolean {
+        return this.amount === 0;
+    }
+
+    isFull(): boolean {
+        return this.amount >= this.maxStack;
+    }
+
+    spaceLeft(): number {
+        return this.maxStack - this.amount;
+    }
+
     gainItems(amount: number = 1) {
         this.amount += amount;
         if (this.amount > this.maxStack) {

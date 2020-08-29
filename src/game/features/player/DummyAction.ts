@@ -1,6 +1,7 @@
 import {PlayerAction} from "@/game/features/player/PlayerAction";
 import {App} from "@/App";
 import {WorldLocationIdentifier} from "@/game/features/world/WorldLocationIdentifier";
+import {ItemId} from "@/game/items/ItemId";
 
 export class DummyAction extends PlayerAction {
 
@@ -10,7 +11,8 @@ export class DummyAction extends PlayerAction {
 
     gainReward(): boolean {
         App.game.wallet.gainMoney(1);
-        return true;
+        const couldAdd: boolean = App.game.playerInventory.gainItem(ItemId.Fish1, Math.floor(Math.random() * 6 + 1));
+        return couldAdd;
     }
 
 }

@@ -9,7 +9,7 @@ export class MoneyPotion extends Item implements Consumable {
 
 
     constructor(value: number) {
-        super(ItemId.MoneyPotion, ItemType.Global);
+        super("Money Potion", ItemId.MoneyPotion, ItemType.Global, 3);
         this.value = value;
     }
 

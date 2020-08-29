@@ -50,9 +50,9 @@ export class PlayerInventory extends Feature {
         this.getSubInventory(inventory).consumeItem(index);
     }
 
-    gainItem(id: ItemId, amount: number = 1) {
+    gainItem(id: ItemId, amount: number = 1): boolean {
         // Check subinventories for best stack to add to
-        this.getSubInventory(InventoryId.Main).gainItem(id, amount);
+        return this.getSubInventory(InventoryId.Main).gainItem(id, amount);
     }
 
     loseItem(inventory: InventoryId, index: number, amount: number = 1) {

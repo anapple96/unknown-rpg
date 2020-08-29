@@ -6,8 +6,8 @@ import {ItemId} from "@/game/items/ItemId";
 export class EquipableInventory extends Item {
     inventory: Inventory;
 
-    constructor(id: ItemId, inventory: Inventory) {
-        super(id, ItemType.Global);
+    constructor(name: string, id: ItemId, inventory: Inventory) {
+        super(name, id, ItemType.Global, 1);
         this.inventory = inventory;
     }
 }
