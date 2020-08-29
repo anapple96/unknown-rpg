@@ -62,7 +62,6 @@ export abstract class PlayerAction {
     }
 
     finish(): void {
-        console.log("Action finished");
         this.isFinished = true;
         this._onFinished.dispatch(this);
     }
@@ -72,10 +71,21 @@ export abstract class PlayerAction {
         this.currentProgress = 0;
     }
 
-    abstract canPerform(): boolean;
+    /**
+     * Override if more permissions exist.
+     * Make sure to call the super for the location check.
+     */
+    canPerform(): boolean {
+        return this.isAtLocation();
+    }
 
-    start() {
+    start(): boolean {
+        if(!this.canPerform()) {
+            console.log(`Can't start action ${this.description}`)
+            return false;
+        }
         this.isStarted = true;
+        return true;
     }
 
     cancel() {
