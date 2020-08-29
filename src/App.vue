@@ -1,8 +1,8 @@
 <template>
   <div class="container">
 
+    <player></player>
     <wallet></wallet>
-    <example></example>
     <settings></settings>
     <statistics></statistics>
     <achievements></achievements>
@@ -11,8 +11,8 @@
 </template>
 
 <script>
+import Player from "@/game/features/player/Player.vue";
 import Wallet from "@/engine/features/wallet/Wallet.vue";
-import Example from "@/game/features/example/Example.vue";
 import Settings from "@/engine/features/settings/Settings.vue";
 import Statistics from "@/engine/features/statistics/Statistics.vue";
 import Achievements from "@/engine/features/achievements/Achievements.vue";
@@ -24,7 +24,7 @@ export default {
     'world': World,
     'statistics': Statistics,
     'settings': Settings,
-    'example': Example,
+    'player': Player,
     'wallet': Wallet,
     'achievements': Achievements,
   },

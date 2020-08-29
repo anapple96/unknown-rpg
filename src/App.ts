@@ -1,10 +1,10 @@
-import {Example} from "./game/features/example/Example";
 import {Game} from "./game/Game";
 import {Wallet} from "./engine/features/wallet/Wallet";
 import {Settings} from "@/engine/features/settings/Settings";
 import {Statistics} from "@/engine/features/statistics/Statistics";
 import {Achievements} from "@/engine/features/achievements/Achievements";
 import {WorldBuilder} from "@/game/features/world/WorldBuilder";
+import {Player} from "@/game/features/player/Player";
 
 export class App {
 
@@ -21,7 +21,7 @@ export class App {
 
     static createNewGame(): Game {
         return new Game(
-            new Example(),
+            new Player(),
             new Wallet(),
             WorldBuilder.createWorld(),
             new Settings(),
