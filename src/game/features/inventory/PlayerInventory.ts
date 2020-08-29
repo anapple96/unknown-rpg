@@ -1,19 +1,58 @@
 import {Inventory} from "./Inventory";
 import {InventoryId} from "./InventoryId";
 import {ItemId} from "../../items/ItemId";
+import {Feature} from "@/game/Feature";
+import {InventorySaveData} from "@/game/features/inventory/InventorySaveData";
+import {ItemType} from "@/game/items/ItemType";
 
-export class PlayerInventory {
+
+export class PlayerInventory extends Feature {
+    name: string = "Inventory";
+    saveKey: string = "inventory";
+
     inventorySlots = 3;
     inventories: Inventory[] = []
 
+
+    constructor() {
+        super();
+        this.enableInventory(new Inventory(InventoryId.Main, 10, [ItemType.Global, ItemType.Quest], ItemId.Empty))
+    }
+
+    enableInventory(inventory: Inventory) {
+        if (this.inventories.length >= this.inventorySlots) {
+            console.warn(`Cannot have more than ${this.inventorySlots} active`);
+            return;
+        }
+        this.inventories.push(inventory);
+    }
+
+    disableInventory(id: InventoryId) {
+        if (id === InventoryId.Main) {
+            console.warn("Cannot disable main inventory");
+            return;
+        }
+        const inventory = this.getSubInventory(id);
+        if (!inventory.isEmpty()) {
+            console.warn(`Cannot disable inventory ${id} if it's not empty`)
+            return;
+        }
+        if (!this.getSubInventory(InventoryId.Main).isEmpty()) {
+            console.warn(`Cannot disable inventory ${id} as main inventory is not empty`);
+            return;
+        }
+        const index = this.inventories.indexOf(inventory);
+        this.gainItem(inventory.itemRepresentation);
+        this.inventories.splice(index, 1);
+    }
 
     consumeItem(inventory: InventoryId, index: number) {
         this.getSubInventory(inventory).consumeItem(index);
     }
 
-    gainItem(inventory: InventoryId, id: ItemId, amount: number = 1) {
+    gainItem(id: ItemId, amount: number = 1) {
         // Check subinventories for best stack to add to
-        this.getSubInventory(inventory).gainItem(id, amount);
+        this.getSubInventory(InventoryId.Main).gainItem(id, amount);
     }
 
     loseItem(inventory: InventoryId, index: number, amount: number = 1) {
@@ -27,5 +66,17 @@ export class PlayerInventory {
             }
         }
         throw new Error(`Could not find inventory with id ${id}`);
+    }
+
+    load(data: InventorySaveData): void {
+        // Empty
+    }
+
+    parseSaveData(json: Record<string, unknown>): InventorySaveData {
+        return new InventorySaveData();
+    }
+
+    save(): InventorySaveData {
+        return new InventorySaveData();
     }
 }

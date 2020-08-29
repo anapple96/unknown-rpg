@@ -5,4 +5,7 @@ export enum ItemId {
     Fish2 = "Fish2",
     SomeSword = "SomeSword",
     AnotherShield = "AnotherShield",
+
+    MainInventory = "MainInventory",
+    FishInventory1 = "FishInventory1",
 }

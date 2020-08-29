@@ -11,8 +11,9 @@ export class Inventory {
     items: InventoryItem[];
     acceptedTypes: ItemType[];
 
+    itemRepresentation: ItemId;
 
-    constructor(id: InventoryId, slots: number, acceptedTypes: ItemType[]) {
+    constructor(id: InventoryId, slots: number, acceptedTypes: ItemType[], itemRepresentation: ItemId) {
         this.id = id;
         this.slots = slots;
         this.items = [];
@@ -20,6 +21,7 @@ export class Inventory {
             this.items.push(new InventoryItem(ItemId.Empty, 0));
         }
         this.acceptedTypes = acceptedTypes;
+        this.itemRepresentation = itemRepresentation;
     }
 
     consumeItem(index: number) {
@@ -52,4 +54,12 @@ export class Inventory {
     }
 
 
+    isEmpty(): boolean {
+        for (const item of this.items) {
+            if (item.amount != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

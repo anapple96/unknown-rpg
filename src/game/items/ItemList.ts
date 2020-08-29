@@ -2,6 +2,9 @@ import {ItemId} from "@/game/items/ItemId";
 import {Item} from "@/game/items/Item";
 import {ItemType} from "@/game/items/ItemType";
 import {MoneyPotion} from "@/game/items/MoneyPotion";
+import {EquipableInventory} from "@/game/items/EquipableInventory";
+import {Inventory} from "@/game/features/inventory/Inventory";
+import {InventoryId} from "@/game/features/inventory/InventoryId";
 
 export class ItemList {
     static items: Record<ItemId, Item> = {} as Record<ItemId, Item>;
@@ -9,6 +12,7 @@ export class ItemList {
     static initialize() {
         this.registerItem(new Item(ItemId.Empty, ItemType.Global));
         this.registerItem(new MoneyPotion(10));
+        this.registerItem(new EquipableInventory(ItemId.FishInventory1, new Inventory(InventoryId.Fish1, 6, [ItemType.Fish], ItemId.FishInventory1)));
     }
 
     static registerItem(item: Item) {
