@@ -48,6 +48,7 @@ export class Inventory {
 
     /**
      * Add items to this inventory, prefer an existing stack
+     * Recursively calls itself if stacks are overflowing
      * Returns the number of items that need to be added
      * @param id
      * @param amount
@@ -86,6 +87,10 @@ export class Inventory {
     }
 
     getSpotsLeftForItem(id: ItemId) {
+        const item = ItemList.getItem(id);
+        if (!this.acceptsType(item.type)) {
+            return 0;
+        }
         const maxStack = ItemList.getItem(id).maxStack;
         let total = 0;
         for (const item of this.items) {

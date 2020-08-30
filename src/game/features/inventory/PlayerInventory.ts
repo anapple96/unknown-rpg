@@ -17,11 +17,11 @@ export class PlayerInventory extends Feature {
 
     constructor() {
         super();
-        this.enableInventory(new Inventory(InventoryId.Main, 5, [ItemType.Global, ItemType.Quest], ItemId.Empty))
     }
 
 
     initialize() {
+        this.enableInventory(new Inventory(InventoryId.Main, 5, [ItemType.Global, ItemType.Quest], ItemId.Empty))
         this.gainItem(ItemId.FishInventory1);
     }
 
@@ -57,7 +57,15 @@ export class PlayerInventory extends Feature {
         this.getSubInventory(inventory).consumeItem(index);
     }
 
-    gainItem(id: ItemId, amount: number = 1, errorOnInventoryFull: boolean = true): boolean {
+    /**
+     * Loop over all inventories to try and place the amount of item.
+     * errorOnInventoryFull determines whether to continue if not everything can be added
+     * @param id item to add
+     * @param amount
+     * @param errorOnInventoryFull if false, items will be added as possible, if true no items will be added and an exception be thrown.
+     * This is useful for quest items that must be placed in the inventory
+     */
+    gainItem(id: ItemId, amount: number = 1, errorOnInventoryFull: boolean = false): boolean {
         if (!this.canTakeItem(id, amount) && errorOnInventoryFull) {
             throw new Error(`Cannot take ${amount} of item ${id}`);
         }
@@ -132,7 +140,7 @@ export class PlayerInventory extends Feature {
         return this.getSubInventory(InventoryId.Main);
     }
 
-    private getSubInventory(id: InventoryId): Inventory {
+    getSubInventory(id: InventoryId): Inventory {
         for (const inventory of this.inventories) {
             if (inventory.id === id) {
                 return inventory;
