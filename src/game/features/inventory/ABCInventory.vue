@@ -2,7 +2,7 @@
   <div>
 
     <span> {{ inventory.id }} - {{ inventory.slots }} {{ inventory.acceptedTypes }}</span>
-    <button @click="collapse">Collapse</button>
+    <button v-if="canCollapse" @click="collapse">Collapse</button>
     <div class="inventory-list">
       <inventory-item
           v-for="(item, index) in inventory.items"
@@ -48,7 +48,10 @@ export default {
     },
     hasItemSelected() {
       return this.selectedItem.id !== ItemId.Empty;
-    }
+    },
+    canCollapse() {
+      return App.game.playerInventory.canCollapse(this.inventory.id);
+    },
   },
   methods: {
     consume() {

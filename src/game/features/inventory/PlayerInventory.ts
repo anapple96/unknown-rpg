@@ -52,6 +52,10 @@ export class PlayerInventory extends Feature {
         this.inventories.splice(index, 1);
     }
 
+    canCollapse(id: InventoryId): boolean {
+        return id !== InventoryId.Main && this.getSubInventory(id).isEmpty() && this.getSubInventory(InventoryId.Main).hasEmptySlot();
+    }
+
 
     consumeItem(inventory: InventoryId, index: number) {
         this.getSubInventory(inventory).consumeItem(index);
