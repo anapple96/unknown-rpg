@@ -21,7 +21,7 @@ export class PlayerInventory extends Feature {
 
 
     initialize() {
-        this.enableInventory(new Inventory(InventoryId.Main, 5, [ItemType.Global, ItemType.Quest], ItemId.Empty))
+        this.enableInventory(new Inventory(InventoryId.Main, 5, [ItemType.Global, ItemType.Quest, ItemType.Fish], ItemId.Empty))
         this.gainItem(ItemId.FishInventory1);
     }
 
@@ -61,11 +61,16 @@ export class PlayerInventory extends Feature {
         }
         const itemFrom = this.getSubInventory(inventoryFromId).items[indexFrom];
         const itemTo = this.getSubInventory(inventoryToId).items[indexTo];
+
         if (itemFrom.id === itemTo.id) {
             this.mergeItems(inventoryFromId, indexFrom, inventoryToId, indexTo);
             return;
         }
+
+        this.swapItems(inventoryFromId, indexFrom, inventoryToId, indexTo);
+        return;
     }
+
 
     mergeItems(inventoryFromId: InventoryId, indexFrom: number, inventoryToId: InventoryId, indexTo: number) {
         const fromInventory = this.getSubInventory(inventoryFromId);

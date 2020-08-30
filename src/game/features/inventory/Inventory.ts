@@ -3,7 +3,7 @@ import {InventoryItem} from "@/game/features/inventory/InventoryItem";
 import {ItemType} from "@/game/items/ItemType";
 import {ItemId} from "@/game/items/ItemId";
 import {ItemList} from "@/game/items/ItemList";
-import {Consumable, isConsumable} from "@/game/items/Consumable";
+import {isConsumable} from "@/game/items/Consumable";
 
 export class Inventory {
     id: InventoryId;
@@ -174,6 +174,6 @@ export class Inventory {
     }
 
     acceptsType(type: ItemType): boolean {
-        return this.acceptedTypes.includes(type);
+        return this.acceptedTypes.includes(type) || type === ItemType.Empty;
     }
 }
