@@ -56,7 +56,7 @@ describe('PlayerInventory', () => {
     test('Inventory overflows correctly into another ', () => {
         // Arrange
         const playerInventory: PlayerInventory = new PlayerInventory();
-        playerInventory.enableInventory(new Inventory(InventoryId.Main, 1, [ItemType.Global], ItemId.Empty))
+        playerInventory.enableInventory(new Inventory(InventoryId.Main, 1, [ItemType.Fish], ItemId.Empty))
         playerInventory.enableInventory(new Inventory(InventoryId.Example, 1, [ItemType.Fish], ItemId.Empty))
 
         // Act

@@ -18,7 +18,7 @@ describe('Inventory', () => {
 
     test('Inventory is empty after creation', () => {
         // Arrange
-        const inventory: Inventory = new Inventory(InventoryId.Main, 1, [], ItemId.Empty);
+        const inventory: Inventory = new Inventory(InventoryId.Main, 1, [ItemType.Global], ItemId.Empty);
 
         // Act
 
@@ -28,7 +28,7 @@ describe('Inventory', () => {
 
     test('Inventory is not empty after item is added', () => {
         // Arrange
-        const inventory: Inventory = new Inventory(InventoryId.Main, 1, [], ItemId.Empty);
+        const inventory: Inventory = new Inventory(InventoryId.Main, 1, [ItemType.Global], ItemId.Empty);
 
 
         // Act
@@ -42,7 +42,7 @@ describe('Inventory', () => {
 
     test('We can add more of the same item to a stack', () => {
         // Arrange
-        const inventory: Inventory = new Inventory(InventoryId.Main, 1, [], ItemId.Empty);
+        const inventory: Inventory = new Inventory(InventoryId.Main, 1, [ItemType.Global], ItemId.Empty);
 
         // Act
         inventory.gainItem(exampleItem);
@@ -54,7 +54,7 @@ describe('Inventory', () => {
 
     test('Adding items does not exceed max stack count', () => {
         // Arrange
-        const inventory: Inventory = new Inventory(InventoryId.Main, 1, [], ItemId.Empty);
+        const inventory: Inventory = new Inventory(InventoryId.Main, 1, [ItemType.Global], ItemId.Empty);
 
         // Act
         inventory.gainItem(exampleItem, maxExampleStack + 1);
@@ -66,7 +66,7 @@ describe('Inventory', () => {
 
     test('Adding items overflows into the next stack', () => {
         // Arrange
-        const inventory: Inventory = new Inventory(InventoryId.Main, 2, [], ItemId.Empty);
+        const inventory: Inventory = new Inventory(InventoryId.Main, 2, [ItemType.Global], ItemId.Empty);
 
         // Act
         inventory.gainItem(exampleItem, maxExampleStack + 1);
@@ -78,7 +78,7 @@ describe('Inventory', () => {
 
     test('Correct spots left', () => {
         // Arrange
-        const inventory: Inventory = new Inventory(InventoryId.Main, 2, [], ItemId.Empty);
+        const inventory: Inventory = new Inventory(InventoryId.Main, 2, [ItemType.Global], ItemId.Empty);
         expect(inventory.getSpotsLeftForItem(exampleItem)).toBe(2 * maxExampleStack);
 
         // Act
@@ -92,7 +92,7 @@ describe('Inventory', () => {
 
     test('Correct spots left with multiple items', () => {
         // Arrange
-        const inventory: Inventory = new Inventory(InventoryId.Main, 2, [], ItemId.Empty);
+        const inventory: Inventory = new Inventory(InventoryId.Main, 2, [ItemType.Global], ItemId.Empty);
 
         // Act
         inventory.gainItem(exampleItem);

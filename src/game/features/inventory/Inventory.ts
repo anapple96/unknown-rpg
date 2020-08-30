@@ -56,6 +56,10 @@ export class Inventory {
     gainItem(id: ItemId, amount: number = 1): number {
         const item = ItemList.getItem(id);
 
+        if (!this.acceptsType(item.type)) {
+            return amount;
+        }
+
         // Find stack and add to it or create a new one
         const nonFullStackIndex = this.getIndexOfNonFullStack(id);
         if (nonFullStackIndex === -1) {
