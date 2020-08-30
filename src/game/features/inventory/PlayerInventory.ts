@@ -52,6 +52,62 @@ export class PlayerInventory extends Feature {
         this.inventories.splice(index, 1);
     }
 
+    inventoryInteraction(inventoryFromId: InventoryId, indexFrom: number, inventoryToId: InventoryId, indexTo: number) {
+        if (inventoryFromId === inventoryToId) {
+            if (indexFrom === indexTo) {
+                console.log("Moving item to itself");
+                return;
+            }
+        }
+        const itemFrom = this.getSubInventory(inventoryFromId).items[indexFrom];
+        const itemTo = this.getSubInventory(inventoryToId).items[indexTo];
+        if (itemFrom.id === itemTo.id) {
+            this.mergeItems(inventoryFromId, indexFrom, inventoryToId, indexTo);
+            return;
+        }
+    }
+
+    mergeItems(inventoryFromId: InventoryId, indexFrom: number, inventoryToId: InventoryId, indexTo: number) {
+        const fromInventory = this.getSubInventory(inventoryFromId);
+        const toInventory = this.getSubInventory(inventoryToId);
+
+        const inventoryItemFrom = fromInventory.items[indexFrom];
+        const inventoryItemTo = toInventory.items[indexTo];
+
+        if (inventoryItemFrom.id !== inventoryItemTo.id) {
+            throw new Error(`Cannot merge items of types ${inventoryItemFrom.id} and ${inventoryItemTo.id}`);
+        }
+
+        const amount = Math.min(inventoryItemFrom.amount, inventoryItemTo.spaceLeft());
+        inventoryItemFrom.loseItems(amount);
+        inventoryItemTo.gainItems(amount);
+    }
+
+    swapItems(idFrom: InventoryId, indexFrom: number, idTo: InventoryId, indexTo: number) {
+        const fromInventory = this.getSubInventory(idFrom);
+        const toInventory = this.getSubInventory(idTo);
+
+        const inventoryItemFrom = fromInventory.items[indexFrom];
+        const inventoryItemTo = toInventory.items[indexTo];
+
+        const itemFrom = ItemList.getItem(inventoryItemFrom.id);
+        const itemTo = ItemList.getItem(inventoryItemTo.id);
+
+        if (!fromInventory.acceptsType(itemTo.type)) {
+            console.error(`Cannot swap items ${itemFrom} and ${itemTo} as inventory ${fromInventory.id} does not accept it`);
+            return;
+        }
+        if (!toInventory.acceptsType(itemFrom.type)) {
+            console.error(`Cannot swap items ${itemFrom} and ${itemTo} as inventory ${toInventory.id} does not accept it`);
+            return;
+        }
+
+        const temp = inventoryItemFrom;
+        fromInventory.items.splice(indexFrom, 1, inventoryItemTo);
+        toInventory.items.splice(indexTo, 1, temp);
+
+    }
+
     canCollapse(id: InventoryId): boolean {
         return id !== InventoryId.Main && this.getSubInventory(id).isEmpty() && this.getSubInventory(InventoryId.Main).hasEmptySlot();
     }
