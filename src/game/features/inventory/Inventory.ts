@@ -103,6 +103,14 @@ export class Inventory {
         return -1;
     }
 
+    hasEmptySlot(): boolean {
+        return this.getIndexOfFirstEmptySlot() !== -1;
+    }
+
+    hasNonFullStack(id: ItemId): boolean {
+        return this.getIndexOfNonFullStack(id) !== -1;
+    }
+
 
     loseItem(index: number, amount: number = 1) {
         this.items[index].amount -= amount;
@@ -129,4 +137,7 @@ export class Inventory {
         return true;
     }
 
+    acceptsType(type: ItemType): boolean {
+        return this.acceptedTypes.includes(type);
+    }
 }

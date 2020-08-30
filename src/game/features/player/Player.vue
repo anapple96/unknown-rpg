@@ -26,7 +26,7 @@ export default {
 
   methods: {
     addDummyAction() {
-      App.game.player.addAction(new DummyAction("Fish in Toon Town", new TownLocationIdentifier(TownId.ToonTown), 1, 10));
+      App.game.player.addAction(new DummyAction("Fish in Toon Town", new TownLocationIdentifier(TownId.ToonTown), 0.4, 100));
     },
     addDummyAction2() {
       App.game.player.addAction(new DummyAction2("Get a magic potion in Toon Town", new TownLocationIdentifier(TownId.ToonTown), 1, 10));

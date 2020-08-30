@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>I'm the main inventory</p>
+    <p>I'm the top-level inventory</p>
     <inventory v-for="inv in inventories" :inventory="inv" :key="inv.id"></inventory>
   </div>
 </template>

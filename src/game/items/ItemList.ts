@@ -13,7 +13,7 @@ export class ItemList {
         this.registerItem(new Item("Empty", ItemId.Empty, ItemType.Global, 0));
         this.registerItem(new MoneyPotion(10));
         this.registerItem(new EquipableInventory("Fish Inventory", ItemId.FishInventory1, new Inventory(InventoryId.Fish1, 6, [ItemType.Fish], ItemId.FishInventory1)));
-        this.registerItem(new Item("Fish1", ItemId.Fish1, ItemType.Global, 5));
+        this.registerItem(new Item("Fish1", ItemId.Fish1, ItemType.Fish, 5));
     }
 
     static registerItem(item: Item) {

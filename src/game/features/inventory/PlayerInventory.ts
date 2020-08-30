@@ -4,6 +4,7 @@ import {ItemId} from "../../items/ItemId";
 import {Feature} from "@/game/Feature";
 import {InventorySaveData} from "@/game/features/inventory/InventorySaveData";
 import {ItemType} from "@/game/items/ItemType";
+import {ItemList} from "@/game/items/ItemList";
 
 
 export class PlayerInventory extends Feature {
@@ -42,8 +43,8 @@ export class PlayerInventory extends Feature {
             console.warn(`Cannot disable inventory ${id} if it's not empty`)
             return;
         }
-        if (!this.getSubInventory(InventoryId.Main).isEmpty()) {
-            console.warn(`Cannot disable inventory ${id} as main inventory is not empty`);
+        if (!this.getSubInventory(InventoryId.Main).hasEmptySlot()) {
+            console.warn(`Cannot disable inventory ${id} as main inventory has no empty slots`);
             return;
         }
         const index = this.inventories.indexOf(inventory);
@@ -51,17 +52,49 @@ export class PlayerInventory extends Feature {
         this.inventories.splice(index, 1);
     }
 
+
     consumeItem(inventory: InventoryId, index: number) {
         this.getSubInventory(inventory).consumeItem(index);
     }
 
     gainItem(id: ItemId, amount: number = 1): boolean {
         // Check subinventories for best stack to add to
-        return this.getSubInventory(InventoryId.Main).gainItem(id, amount);
+        const item = ItemList.getItem(id);
+        const inventory = this.getInventoryToPlaceItem(id, item.type);
+        return inventory.gainItem(id, amount);
     }
 
     loseItem(inventory: InventoryId, index: number, amount: number = 1) {
         this.getSubInventory(inventory).loseItem(index, amount);
+    }
+
+    private getInventoryToPlaceItem(id: ItemId, type: ItemType): Inventory {
+
+        // Check for inventory with a stack to add to
+        for (const inventory of this.inventories) {
+            // Don't check the main inventory, it will fall back on it.
+            if (inventory.id === InventoryId.Main) {
+                continue;
+            }
+
+            if (inventory.hasNonFullStack(id)) {
+                return inventory;
+            }
+        }
+
+        // Check for inventory with the best empty slot
+        for (const inventory of this.inventories) {
+            // Don't check the main inventory, it will fall back on it.
+            if (inventory.id === InventoryId.Main) {
+                continue;
+            }
+            console.log(inventory.id, type, inventory.acceptsType(type));
+            if (inventory.acceptsType(type) && inventory.hasEmptySlot()) {
+                return inventory;
+            }
+        }
+
+        return this.getSubInventory(InventoryId.Main);
     }
 
     private getSubInventory(id: InventoryId): Inventory {

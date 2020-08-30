@@ -1,7 +1,8 @@
 <template>
   <div>
 
-    <p> {{ inventory.id }} - {{ inventory.slots }} {{ inventory.acceptedTypes }}</p>
+    <span> {{ inventory.id }} - {{ inventory.slots }} {{ inventory.acceptedTypes }}</span>
+    <button @click="collapse">Collapse</button>
     <div class="inventory-list">
       <inventory-item
           v-for="(item, index) in inventory.items"
@@ -13,7 +14,6 @@
 
     </div>
     <div class="hovered-item" v-show="hasItemSelected">
-      <p> {{ selectedItem.name }}</p>
       <button v-if="isConsumable" @click="consume">Consume</button>
       <button @click="drop">Drop</button>
     </div>
@@ -26,6 +26,7 @@ import InventoryItem from "@/game/features/inventory/InventoryItem.vue";
 import {ItemList} from "@/game/items/ItemList.ts";
 import {ItemId} from "@/game/items/ItemId";
 import {isConsumable} from "@/game/items/Consumable";
+import {App} from "@/App.ts";
 
 export default {
   name: "Inventory",
@@ -58,6 +59,9 @@ export default {
     },
     setHoveredItem(index) {
       this.hoveredIndex = index;
+    },
+    collapse() {
+      App.game.playerInventory.disableInventory(this.inventory.id);
     }
   }
 

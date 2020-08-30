@@ -1,7 +1,9 @@
 <template>
   <div class="inventory-item" :class="{'inventory-item-selected': selected}">
-    <p>{{ inventoryItem.id }}</p>
-    <p> {{ inventoryItem.amount }} / {{ inventoryItem.maxStack }}</p>
+    <div v-if="!inventoryItem.isEmpty()">
+      <p>{{ item.name }}</p>
+      <p> {{ inventoryItem.amount }} / {{ inventoryItem.maxStack }}</p>
+    </div>
   </div>
 </template>
 
