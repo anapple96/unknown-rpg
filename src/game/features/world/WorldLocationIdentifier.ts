@@ -16,6 +16,10 @@ export abstract class WorldLocationIdentifier {
     }
 
     public equals(other: WorldLocationIdentifier): boolean {
+        if(other == null) {
+            console.warn(`Comparing ${this.toString()} to null`);
+            return false;
+        }
         return this.type === other.type && this.id == other.id;
     }
 }

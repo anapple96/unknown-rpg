@@ -8,10 +8,6 @@ export class DummyAction extends PlayerAction {
         super(description, location, duration, repeat);
     }
 
-    canPerform(): boolean {
-        return true;
-    }
-
     gainReward(): boolean {
         App.game.wallet.gainMoney(1);
         return true;

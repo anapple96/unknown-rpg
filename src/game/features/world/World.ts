@@ -5,6 +5,8 @@ import {TownId} from "@/game/features/world/towns/TownId";
 import {WorldSaveData} from "@/game/features/world/WorldSaveData";
 import {Road} from "@/game/features/world/roads/Road";
 import {Town} from "@/game/features/world/towns/Town";
+import {TravelAction} from "@/game/features/world/TravelAction";
+import {App} from "@/App";
 
 export class World extends Feature {
     name: string = "World";
@@ -28,28 +30,43 @@ export class World extends Feature {
      * @param target to move to
      */
     moveToLocation(target: WorldLocationIdentifier): boolean {
-        if (this.playerLocation.equals(target)) {
+        const startingLocation = App.game.player.getPlayerLocationAtEndOfQueue();
+
+
+        if (startingLocation.equals(target)) {
             console.log(`You're already at ${target}`);
             return false;
         }
-        if (!this.areConnected(this.playerLocation, target)) {
-            console.log(`There is no road from ${this.playerLocation} to ${target}`);
+
+        const road = this.getConnectionRoad(startingLocation, target);
+
+        if (road == null) {
+            console.log(`There is no road from ${startingLocation} to ${target}`);
             return false;
         }
 
-        this.playerLocation = target;
+        const duration = road.baseDifficulty / 25;
+        App.game.player.addAction(new TravelAction(startingLocation, duration, target));
         return true;
     }
 
+    setLocation(target: WorldLocationIdentifier) {
+        this.playerLocation = target;
+    }
+
     areConnected(from: WorldLocationIdentifier, to: WorldLocationIdentifier): boolean {
+        return this.getConnectionRoad(from, to) !== null;
+    }
+
+    getConnectionRoad(from: WorldLocationIdentifier, to: WorldLocationIdentifier): Road | null {
         // TODO(@Isha) improve efficiency, this is why you went to uni.
         for (const road of this.roads) {
             // Bidirectional roads
             if (road.from.equals(from) && road.to.equals(to) || road.from.equals(to) && road.to.equals(from)) {
-                return true;
+                return road;
             }
         }
-        return false;
+        return null;
     }
 
     load(data: WorldSaveData): void {

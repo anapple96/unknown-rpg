@@ -1,9 +1,9 @@
 <template>
   <div>
     <p>I'm a player</p>
-    <player-action v-for="(action, index) in queue" :action="action"
+    <player-action v-for="(action, index) in queue" :index="index" :action="action"
                    :key="index + '-' + action.description"></player-action>
-    <button @click="addDummyAction"> Add dummy action</button>
+    <button @click="addDummyAction"> Perform dummy action in Toon Town</button>
   </div>
 </template>
 
@@ -11,6 +11,8 @@
 import {App} from "@/App.ts";
 import {DummyAction} from "@/game/features/player/DummyAction";
 import PlayerAction from "@/game/features/player/PlayerAction.vue";
+import {TownLocationIdentifier} from "@/game/features/world/towns/TownLocationIdentifier";
+import {TownId} from "@/game/features/world/towns/TownId";
 
 export default {
   name: "Player",
@@ -23,7 +25,7 @@ export default {
 
   methods: {
     addDummyAction() {
-      App.game.player.addAction(new DummyAction("Do a dummy action", null, 3, 3));
+      App.game.player.addAction(new DummyAction("Do a dummy action in Toon Town", new TownLocationIdentifier(TownId.ToonTown), 3, 1));
     }
   },
 

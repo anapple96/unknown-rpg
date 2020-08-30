@@ -1,12 +1,13 @@
 <template>
   <div class="container">
 
-    <player></player>
     <wallet></wallet>
     <settings></settings>
     <statistics></statistics>
     <achievements></achievements>
     <world></world>
+    <player></player>
+
   </div>
 </template>
 
