@@ -18,7 +18,7 @@ export class Inventory {
         this.slots = slots;
         this.items = [];
         for (let i = 0; i < this.slots; i++) {
-            this.items.push(new InventoryItem(ItemId.Empty, 0));
+            this.items.push(new InventoryItem(ItemId.Empty, 0, 0));
         }
         this.acceptedTypes = acceptedTypes;
         this.itemRepresentation = itemRepresentation;
@@ -28,12 +28,22 @@ export class Inventory {
         const id = this.items[index].id;
         const item = ItemList.getItem(id);
 
-        if (isConsumable(item)) {
-            if (this.getAmount(index) > 0 && item.canConsume()) {
-                item.consume();
-                this.loseItem(index, 1);
-            }
+
+        if (!isConsumable(item)) {
+            console.warn(`Item ${item} is not a consumable`);
+            return;
         }
+        if (this.getAmount(index) <= 0) {
+            console.warn(`Amount of ${this.items[index]} is not greater than 0`);
+            return;
+        }
+        if (!item.canConsume()) {
+            console.warn("Cannot consume item, check its restrictions for the reason");
+            return;
+        }
+
+        item.consume();
+        this.loseItem(index, 1);
     }
 
     /**
@@ -97,8 +107,12 @@ export class Inventory {
     loseItem(index: number, amount: number = 1) {
         this.items[index].amount -= amount;
         if (this.items[index].amount <= 0) {
-            this.items[index] = new InventoryItem(ItemId.Empty, 0);
+            this.items.splice(index, 1, new InventoryItem(ItemId.Empty, 0, 0));
         }
+    }
+
+    dropStack(index: number) {
+        this.loseItem(index, this.items[index].amount);
     }
 
     getAmount(index: number): number {
@@ -114,4 +128,5 @@ export class Inventory {
         }
         return true;
     }
+
 }

@@ -18,7 +18,7 @@ export class MoneyPotion extends Item implements Consumable {
     }
 
     canConsume(): boolean {
-        return false;
+        return true;
     }
 
 }

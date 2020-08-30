@@ -10,7 +10,7 @@ export class ItemList {
     static items: Record<ItemId, Item> = {} as Record<ItemId, Item>;
 
     static initialize() {
-        this.registerItem(new Item("Empty", ItemId.Empty, ItemType.Global));
+        this.registerItem(new Item("Empty", ItemId.Empty, ItemType.Global, 0));
         this.registerItem(new MoneyPotion(10));
         this.registerItem(new EquipableInventory("Fish Inventory", ItemId.FishInventory1, new Inventory(InventoryId.Fish1, 6, [ItemType.Fish], ItemId.FishInventory1)));
         this.registerItem(new Item("Fish1", ItemId.Fish1, ItemType.Global, 5));

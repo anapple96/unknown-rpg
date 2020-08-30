@@ -19,6 +19,11 @@ export class PlayerInventory extends Feature {
         this.enableInventory(new Inventory(InventoryId.Main, 5, [ItemType.Global, ItemType.Quest], ItemId.Empty))
     }
 
+
+    initialize() {
+        this.gainItem(ItemId.FishInventory1);
+    }
+
     enableInventory(inventory: Inventory) {
         if (this.inventories.length >= this.inventorySlots) {
             console.warn(`Cannot have more than ${this.inventorySlots} active`);

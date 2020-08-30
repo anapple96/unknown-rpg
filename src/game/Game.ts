@@ -67,11 +67,11 @@ export class Game {
      * Initialize all features
      */
     public initialize(): void {
+        ItemList.initialize();
+
         for (const feature of this.getAllFeatures()) {
             feature.initialize();
         }
-
-        ItemList.initialize();
 
     }
 
