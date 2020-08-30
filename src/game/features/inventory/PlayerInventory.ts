@@ -16,7 +16,7 @@ export class PlayerInventory extends Feature {
 
     constructor() {
         super();
-        this.enableInventory(new Inventory(InventoryId.Main, 10, [ItemType.Global, ItemType.Quest], ItemId.Empty))
+        this.enableInventory(new Inventory(InventoryId.Main, 5, [ItemType.Global, ItemType.Quest], ItemId.Empty))
     }
 
     enableInventory(inventory: Inventory) {

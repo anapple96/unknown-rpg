@@ -16,3 +16,17 @@ export class DummyAction extends PlayerAction {
     }
 
 }
+
+export class DummyAction2 extends PlayerAction {
+
+    constructor(description: string, location: WorldLocationIdentifier, duration: number, repeat: number) {
+        super(description, location, duration, repeat);
+    }
+
+    gainReward(): boolean {
+        App.game.wallet.gainMoney(1);
+        const couldAdd: boolean = App.game.playerInventory.gainItem(ItemId.MoneyPotion);
+        return couldAdd;
+    }
+
+}
