@@ -31,16 +31,18 @@ export default {
 
   methods: {
     startDrag(evt, inventoryId, index) {
-      console.log("start dragging", inventoryId, index);
+      if (!this.canDrag) {
+        evt.preventDefault();
+        return;
+      }
       evt.dataTransfer.dropEffect = 'move'
       evt.dataTransfer.effectAllowed = 'move'
       evt.dataTransfer.setData('inventoryId', inventoryId);
       evt.dataTransfer.setData('index', index);
     },
     onDrop(evt, inventoryToId, indexTo) {
-      console.log("drop", inventoryToId, indexTo);
       const inventoryFromId = evt.dataTransfer.getData('inventoryId');
-      const indexFrom = evt.dataTransfer.getData('index');
+      const indexFrom = parseInt(evt.dataTransfer.getData('index'));
       App.game.playerInventory.inventoryInteraction(inventoryFromId, indexFrom, inventoryToId, indexTo);
     }
   },
@@ -48,6 +50,9 @@ export default {
   computed: {
     item() {
       return ItemList.getItem(this.inventoryItem.id);
+    },
+    canDrag() {
+      return !this.inventoryItem.isEmpty();
     }
   }
 }
