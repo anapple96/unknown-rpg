@@ -48,11 +48,11 @@ export class Inventory {
 
     /**
      * Add items to this inventory, prefer an existing stack
-     * Returns whether or not all items could be added
+     * Returns the number of items that need to be added
      * @param id
      * @param amount
      */
-    gainItem(id: ItemId, amount: number = 1): boolean {
+    gainItem(id: ItemId, amount: number = 1): number {
         const item = ItemList.getItem(id);
 
         // Find stack and add to it or create a new one
@@ -62,14 +62,14 @@ export class Inventory {
             const emptyIndex = this.getIndexOfFirstEmptySlot();
             if (emptyIndex === -1) {
                 console.log(`Cannot add ${amount} of ${id}, no empty slots left`);
-                return false;
+                return amount;
             }
             const amountToAdd = Math.min(amount, item.maxStack);
             this.items.splice(emptyIndex, 1, new InventoryItem(id, amountToAdd, item.maxStack));
 
             const amountLeft = amount - amountToAdd;
             if (amountLeft <= 0) {
-                return true;
+                return 0;
             }
             return this.gainItem(id, amountLeft);
         } else {
@@ -79,10 +79,27 @@ export class Inventory {
             this.items[nonFullStackIndex].gainItems(amountToAdd);
             const amountLeft = amount - amountToAdd;
             if (amountLeft <= 0) {
-                return true;
+                return 0;
             }
             return this.gainItem(id, amountLeft);
         }
+    }
+
+    getSpotsLeftForItem(id: ItemId) {
+        const maxStack = ItemList.getItem(id).maxStack;
+        let total = 0;
+        for (const item of this.items) {
+            if (item.isEmpty()) {
+                total += maxStack;
+            } else if (item.id === id) {
+                total += item.spaceLeft();
+            }
+        }
+        return total;
+    }
+
+    canTakeItem(id: ItemId, amount: number) {
+        return this.getSpotsLeftForItem(id) >= amount;
     }
 
     getIndexOfNonFullStack(id: ItemId) {

@@ -12,4 +12,5 @@ export enum ItemId {
 
     // Used for testing purposes
     Example = "Example",
+    Example2 = "Example2",
 }

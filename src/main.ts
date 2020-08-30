@@ -5,6 +5,7 @@ import {App} from "./App";
 import './VueFilters';
 
 import "./index.scss";
+import {ItemId} from "@/game/items/ItemId.ts";
 
 Vue.config.productionTip = false
 

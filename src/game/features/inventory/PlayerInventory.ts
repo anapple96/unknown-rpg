@@ -57,12 +57,46 @@ export class PlayerInventory extends Feature {
         this.getSubInventory(inventory).consumeItem(index);
     }
 
-    gainItem(id: ItemId, amount: number = 1): boolean {
-        // Check subinventories for best stack to add to
+    gainItem(id: ItemId, amount: number = 1, errorOnInventoryFull: boolean = true): boolean {
+        if (!this.canTakeItem(id, amount) && errorOnInventoryFull) {
+            throw new Error(`Cannot take ${amount} of item ${id}`);
+        }
+
         const item = ItemList.getItem(id);
-        const inventory = this.getInventoryToPlaceItem(id, item.type);
-        return inventory.gainItem(id, amount);
+
+        let shouldContinue = true;
+        let lastInventory = null;
+        while (shouldContinue) {
+            const inventory = this.getInventoryToPlaceItem(id, item.type);
+
+            // Trying to place it in the same inventory means we're full.
+            if (lastInventory === inventory) {
+                return false;
+            }
+
+            // Try to add it to the found inventory
+            const amountLeft = inventory.gainItem(id, amount);
+            if (amountLeft <= 0) {
+                shouldContinue = false;
+            }
+
+            lastInventory = inventory;
+        }
+        return true;
     }
+
+    getSpotsLeftForItem(id: ItemId) {
+        let total = 0;
+        for (const inventory of this.inventories) {
+            total += inventory.getSpotsLeftForItem(id);
+        }
+        return total;
+    }
+
+    canTakeItem(id: ItemId, amount: number) {
+        return this.getSpotsLeftForItem(id) >= amount;
+    }
+
 
     loseItem(inventory: InventoryId, index: number, amount: number = 1) {
         this.getSubInventory(inventory).loseItem(index, amount);
