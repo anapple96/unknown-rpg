@@ -60,6 +60,11 @@ export class PlayerInventory extends Feature {
             }
         }
         const itemFrom = this.getSubInventory(inventoryFromId).items[indexFrom];
+
+        if (itemFrom.isEmpty()) {
+            console.warn("Cannot interact with empty item");
+            return;
+        }
         const itemTo = this.getSubInventory(inventoryToId).items[indexTo];
 
         if (itemFrom.id === itemTo.id) {
