@@ -7,11 +7,11 @@
 
 <script>
 import {App} from "@/App.ts";
-import Inventory from "@/game/features/inventory/Inventory.vue";
+import Inventory from "@/game/features/inventory/ABCInventory.vue";
 
 export default {
 
-  name: "PlayerInventory",
+  name: "ABCPlayerInventory",
   components: {Inventory},
   data: function () {
     return {

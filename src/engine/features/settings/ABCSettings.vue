@@ -8,10 +8,10 @@
 
 <script>
 import {App} from "@/App.ts";
-import BooleanSetting from "@/engine/features/settings/BooleanSetting.vue";
+import BooleanSetting from "@/engine/features/settings/ABCBooleanSetting.vue";
 
 export default {
-  name: "Settings",
+  name: "ABCSettings",
   components: {BooleanSetting},
   data: function () {
     return {

@@ -11,7 +11,7 @@ import {App} from "@/App.ts";
 import {CurrencyType} from "@/engine/features/wallet/CurrencyType";
 
 export default {
-  name: "Wallet",
+  name: "ABCWallet",
 
   data: function () {
     return {

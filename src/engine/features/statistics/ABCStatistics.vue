@@ -11,7 +11,7 @@
 import {App} from "@/App.ts"
 
 export default {
-  name: "Statistics",
+  name: "ABCStatistics",
 
   data: function () {
     return {

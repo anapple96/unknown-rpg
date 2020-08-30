@@ -12,7 +12,7 @@ import {InventoryItem} from "@/game/features/inventory/InventoryItem";
 import {ItemList} from "@/game/items/ItemList";
 
 export default {
-  name: "InventoryItem",
+  name: "ABCInventoryItem",
   props: {
     selected: Boolean,
     inventoryItem: InventoryItem,

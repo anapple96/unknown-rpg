@@ -27,7 +27,7 @@ import {TownLocationIdentifier} from "@/game/features/world/towns/TownLocationId
 import {TownId} from "@/game/features/world/towns/TownId";
 
 export default {
-  name: "World",
+  name: "ABCWorld",
   data: function () {
     return {
       TownId: TownId,

@@ -13,7 +13,7 @@ import {App} from "@/App.ts";
 import {PlayerAction} from "@/game/features/player/PlayerAction";
 
 export default {
-  name: "PlayerAction",
+  name: "ABCPlayerAction",
   props: {
     index: Number,
     action: PlayerAction,

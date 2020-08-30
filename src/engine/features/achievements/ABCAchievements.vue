@@ -11,7 +11,7 @@
 import {App} from "@/App.ts"
 
 export default {
-  name: "Achievements",
+  name: "ABCAchievements",
 
   data: function () {
     return {

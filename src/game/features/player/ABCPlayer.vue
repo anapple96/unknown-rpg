@@ -11,12 +11,12 @@
 <script>
 import {App} from "@/App.ts";
 import {DummyAction, DummyAction2} from "@/game/features/player/DummyAction";
-import PlayerAction from "@/game/features/player/PlayerAction.vue";
+import PlayerAction from "@/game/features/player/ABCPlayerAction.vue";
 import {TownLocationIdentifier} from "@/game/features/world/towns/TownLocationIdentifier";
 import {TownId} from "@/game/features/world/towns/TownId";
 
 export default {
-  name: "Player",
+  name: "ABCPlayer",
   components: {PlayerAction},
   data: function () {
     return {
