@@ -8,7 +8,10 @@
           v-for="(item, index) in inventory.items"
           :inventory-item="item"
           :selected="index === hoveredIndex"
+          :inventory-id="inventory.id"
+          :index="index"
           :key="item.id + '-' + index"
+
           @click.native="setHoveredItem(index)"
       ></inventory-item>
 
