@@ -66,6 +66,7 @@ export class PlayerInventory extends Feature {
 
         let shouldContinue = true;
         let lastInventory = null;
+        let amountLeft = amount;
         while (shouldContinue) {
             const inventory = this.getInventoryToPlaceItem(id, item.type);
 
@@ -75,7 +76,7 @@ export class PlayerInventory extends Feature {
             }
 
             // Try to add it to the found inventory
-            const amountLeft = inventory.gainItem(id, amount);
+            amountLeft = inventory.gainItem(id, amountLeft);
             if (amountLeft <= 0) {
                 shouldContinue = false;
             }
