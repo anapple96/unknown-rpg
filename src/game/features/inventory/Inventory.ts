@@ -123,6 +123,16 @@ export class Inventory {
         this.loseItem(index, this.items[index].amount);
     }
 
+    getTotalAmount(id: ItemId): number {
+        let total = 0;
+        for (const item of this.items) {
+            if (item.id === id) {
+                total += item.amount;
+            }
+        }
+        return total;
+    }
+
     getAmount(index: number): number {
         return this.items[index].amount;
     }
