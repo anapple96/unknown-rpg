@@ -9,7 +9,7 @@ import {Currency} from "@/engine/features/wallet/Currency";
 import {CurrencyType} from "@/engine/features/wallet/CurrencyType";
 
 export default {
-  name: "Currency",
+  name: "ABCCurrency",
 
   props: {
     currency: Currency

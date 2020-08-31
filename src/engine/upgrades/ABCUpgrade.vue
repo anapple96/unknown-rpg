@@ -7,10 +7,10 @@
 
 <script>
 import {Upgrade} from "@/engine/upgrades/Upgrade.ts";
-import Currency from "@/engine/features/wallet/Currency.vue";
+import Currency from "@/engine/features/wallet/ABCCurrency.vue";
 
 export default {
-  name: "Upgrade",
+  name: "ABCUpgrade",
   components: {
     'currency' :Currency
   },

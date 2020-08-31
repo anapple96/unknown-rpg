@@ -13,7 +13,7 @@ import {BooleanSetting} from "@/engine/features/settings/BooleanSetting";
 import {App} from "@/App.ts";
 
 export default {
-  name: "BooleanSetting",
+  name: "ABCBooleanSetting",
 
   props: {
     setting: BooleanSetting

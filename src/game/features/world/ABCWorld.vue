@@ -1,15 +1,15 @@
 <template>
   <div>
 
-    <p>We are the world</p>
+<!--    <p>We are the world</p>-->
 
 
-    <br>
-    <h3>Towns</h3>
-    <p v-for="town of allTowns" :key="town.id"> {{ town }}</p>
-    <br>
-    <h3>Roads</h3>
-    <p v-for="road of allRoads" :key="road.id"> {{ road }}</p>
+<!--    <br>-->
+<!--    <h3>Towns</h3>-->
+<!--    <p v-for="town of allTowns" :key="town.id"> {{ town }}</p>-->
+<!--    <br>-->
+<!--    <h3>Roads</h3>-->
+<!--    <p v-for="road of allRoads" :key="road.id"> {{ road }}</p>-->
 
     <h3>Player Position</h3>
     <p> {{ playerLocation }}</p>
@@ -27,7 +27,7 @@ import {TownLocationIdentifier} from "@/game/features/world/towns/TownLocationId
 import {TownId} from "@/game/features/world/towns/TownId";
 
 export default {
-  name: "World",
+  name: "ABCWorld",
   data: function () {
     return {
       TownId: TownId,

@@ -7,11 +7,14 @@ import {Statistics} from "@/engine/features/statistics/Statistics";
 import {Achievements} from "@/engine/features/achievements/Achievements";
 import {World} from "@/game/features/world/World";
 import {Player} from "@/game/features/player/Player";
+import {PlayerInventory} from "@/game/features/inventory/PlayerInventory";
+import {ItemList} from "@/game/items/ItemList";
 
 export class Game {
     private _tickInterval: any;
 
     public player: Player;
+    public playerInventory: PlayerInventory;
     public wallet: Wallet;
     public world: World;
     public settings: Settings;
@@ -24,10 +27,11 @@ export class Game {
 
     private readonly TICK_DURATION_MS = 100.0;
 
-    constructor(player: Player, wallet: Wallet, world: World, settings: Settings, statistics: Statistics, achievements: Achievements) {
+    constructor(player: Player, playerInventory: PlayerInventory, wallet: Wallet, world: World, settings: Settings, statistics: Statistics, achievements: Achievements) {
         this.allFeatures = [];
 
         this.player = this.registerFeature(player);
+        this.playerInventory = this.registerFeature(playerInventory);
         this.wallet = this.registerFeature(wallet)
         this.world = this.registerFeature(world);
         this.settings = this.registerFeature(settings);
@@ -63,6 +67,8 @@ export class Game {
      * Initialize all features
      */
     public initialize(): void {
+        ItemList.initialize();
+
         for (const feature of this.getAllFeatures()) {
             feature.initialize();
         }

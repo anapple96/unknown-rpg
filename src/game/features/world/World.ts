@@ -22,7 +22,7 @@ export class World extends Feature {
         this.roads = roads;
         this.towns = towns;
 
-        this.playerLocation = new TownLocationIdentifier(TownId.SmallTown);
+        this.playerLocation = new TownLocationIdentifier(TownId.ToonTown);
     }
 
     /**
