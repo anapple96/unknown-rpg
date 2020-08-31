@@ -1,0 +1,17 @@
+# Contributing
+
+> NOTE: As this project is still in its infancy, we are not accepting pull requests at this time.
+
+When contributing to this repository, please first discuss the change you wish to make via issue,
+Discord, or any other method with the owners of this repository before making a change. 
+
+## Things to do
+- Check out the `good-first-issue` label to start contributing.
+- Open an issue before working on something, always mention an issue in your pull request.
+- Talk to us! We're always willing to discuss new ideas!
+
+## Things not to do
+- Do not host the game somewhere else.
+- Do not update the game version, describe your changes and place them in the `unreleasedChangeLogItems`. 
+- Do not change the `package.json` or `package-lock.json`. Instead, open an issue with why you think that is needed.
+- Do not be discouraged if your pull request gets rejected. Sometimes good ideas don't fit in the game at the current time.
