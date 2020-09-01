@@ -1,7 +1,7 @@
 import {Outcome} from "@/engine/probability/Outcome";
 import {Random} from "@/engine/probability/Random";
 
-export class UniformDistribution<T> {
+export class WeightedDistribution<T> {
     outcomes: Outcome<T>[];
 
     constructor(outcomes: Outcome<T>[] = []) {
