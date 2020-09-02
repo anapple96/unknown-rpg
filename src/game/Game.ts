@@ -9,6 +9,7 @@ import {World} from "@/game/features/world/World";
 import {Player} from "@/game/features/player/Player";
 import {PlayerInventory} from "@/game/features/inventory/PlayerInventory";
 import {ItemList} from "@/game/items/ItemList";
+import {Skill} from "@/game/features/skill/Skill";
 
 export class Game {
     private _tickInterval: any;
@@ -27,7 +28,7 @@ export class Game {
 
     private readonly TICK_DURATION_MS = 100.0;
 
-    constructor(player: Player, playerInventory: PlayerInventory, wallet: Wallet, world: World, settings: Settings, statistics: Statistics, achievements: Achievements) {
+    constructor(player: Player, playerInventory: PlayerInventory, wallet: Wallet, world: World, settings: Settings, statistics: Statistics, achievements: Achievements, skill: Skill) {
         this.allFeatures = [];
 
         this.player = this.registerFeature(player);

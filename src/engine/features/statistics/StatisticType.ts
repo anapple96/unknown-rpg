@@ -1,3 +1,15 @@
 export enum StatisticType {
-    TotalMoneyGained= "total-money-gained",
+    TotalMoneyGained = "total-money-gained",
+    WoodcuttingLevel = "woodcutting-level",
+    MiningLevel = "mining-level",
+    FishingLevel = "fishing-level",
+    CookingLevel = "cooking-level",
+    FiremakingLevel = "firemaking-level",
+    MagicLevel = "magic-level",
+    CraftingLevel = "crafting-level",
+    FletchingLevel = "fletching-level",
+    SmithingLevel = "smithing-level",
+    FarmingLevel = "farming-level",
+    HerbloreLevel = "herblore-level",
+    CombatLevel = "combat-level",
 }
